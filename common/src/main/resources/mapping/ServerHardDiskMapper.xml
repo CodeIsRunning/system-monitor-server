@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liuxf.live.monitor.dao.mapper.ServerHardDiskMapper">
+  <resultMap id="BaseResultMap" type="liuxf.live.monitor.dao.model.ServerHardDisk">
+    <!--@mbg.generated-->
+    <!--@Table server_hard_disk-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="monitor_server_id" jdbcType="INTEGER" property="monitorServerId" />
+    <result column="disk_path" jdbcType="VARCHAR" property="diskPath" />
+    <result column="total_size" jdbcType="INTEGER" property="totalSize" />
+    <result column="used" jdbcType="INTEGER" property="used" />
+    <result column="avail" jdbcType="INTEGER" property="avail" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, monitor_server_id, disk_path, total_size, used, avail, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from server_hard_disk
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from server_hard_disk
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="liuxf.live.monitor.dao.model.ServerHardDisk" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into server_hard_disk (monitor_server_id, disk_path, total_size, 
+      used, avail, create_time, 
+      update_time)
+    values (#{monitorServerId,jdbcType=INTEGER}, #{diskPath,jdbcType=VARCHAR}, #{totalSize,jdbcType=INTEGER}, 
+      #{used,jdbcType=INTEGER}, #{avail,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="liuxf.live.monitor.dao.model.ServerHardDisk" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into server_hard_disk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="monitorServerId != null">
+        monitor_server_id,
+      </if>
+      <if test="diskPath != null and diskPath != ''">
+        disk_path,
+      </if>
+      <if test="totalSize != null">
+        total_size,
+      </if>
+      <if test="used != null">
+        used,
+      </if>
+      <if test="avail != null">
+        avail,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="monitorServerId != null">
+        #{monitorServerId,jdbcType=INTEGER},
+      </if>
+      <if test="diskPath != null and diskPath != ''">
+        #{diskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSize != null">
+        #{totalSize,jdbcType=INTEGER},
+      </if>
+      <if test="used != null">
+        #{used,jdbcType=INTEGER},
+      </if>
+      <if test="avail != null">
+        #{avail,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="liuxf.live.monitor.dao.model.ServerHardDisk">
+    <!--@mbg.generated-->
+    update server_hard_disk
+    <set>
+      <if test="monitorServerId != null">
+        monitor_server_id = #{monitorServerId,jdbcType=INTEGER},
+      </if>
+      <if test="diskPath != null and diskPath != ''">
+        disk_path = #{diskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSize != null">
+        total_size = #{totalSize,jdbcType=INTEGER},
+      </if>
+      <if test="used != null">
+        used = #{used,jdbcType=INTEGER},
+      </if>
+      <if test="avail != null">
+        avail = #{avail,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="liuxf.live.monitor.dao.model.ServerHardDisk">
+    <!--@mbg.generated-->
+    update server_hard_disk
+    set monitor_server_id = #{monitorServerId,jdbcType=INTEGER},
+      disk_path = #{diskPath,jdbcType=VARCHAR},
+      total_size = #{totalSize,jdbcType=INTEGER},
+      used = #{used,jdbcType=INTEGER},
+      avail = #{avail,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2021-01-05-->
+  <select id="selectByMonitorServerId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from server_hard_disk
+    where monitor_server_id=#{monitorServerId,jdbcType=INTEGER} and date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by disk_path
+  </select>
+</mapper>
